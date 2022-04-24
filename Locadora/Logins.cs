@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Locadora
 {
     [Index(nameof(LoginUsuario), Name = "UQ__Logins__3881FC40F6CDC0AB", IsUnique = true)]
+    
+
     public partial class Logins
     {
         [Key]
@@ -16,9 +18,12 @@ namespace Locadora
         public int IdUsuario { get; set; }
         [Column("loginUsuario")]
         [StringLength(15)]
+
+        [Display(Name ="Login")]
         public string LoginUsuario { get; set; }
+        [Display(Name = "Senha")]
         [Column("senhaUsuario")]
         [MaxLength(256)]
-        public byte[] SenhaUsuario { get; set; }
+        public byte[] senhaUsuario { get; set; }
     }
 }

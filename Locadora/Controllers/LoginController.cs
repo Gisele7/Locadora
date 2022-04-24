@@ -6,33 +6,35 @@ namespace Locadora.Controllers
     {
         LocadoraContext locadoraContext;
 
-        public void Setup()
+        public LoginController()
         {
             locadoraContext = new LocadoraContext();
         }
         public IActionResult Index()
         {
-            return View();
+            List<Logins> oLista = locadoraContext.Logins.ToList();
+            return View(oLista);
         }
-        
 
-        [HttpPost]
-        public IActionResult Logar()
-        {
-            try
-            {
-                Logins ologin = new Logins();
-                locadoraContext.Logins.Add(ologin);
-                locadoraContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("erro ao logar.");
 
-            }
-            return Json(new { }); //colocando o retorno com Json, conseguimos fazer personalização nas msgs ou bootstrap tb, usando o DataAnnotation..
 
-        }
+        //[HttpPost]
+        //public IActionResult Logar()
+        //{
+        //    try
+        //    {
+        //        Logins ologin = new Logins();
+        //        locadoraContext.Logins.Add(ologin);
+        //        locadoraContext.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("erro ao logar.");
+
+        //    }
+        //    return Json(new { }); //colocando o retorno com Json, conseguimos fazer personalização nas msgs ou bootstrap tb, usando o DataAnnotation..
+
+        //}
         //[HttpPost]
         //public void Login()
         //{
