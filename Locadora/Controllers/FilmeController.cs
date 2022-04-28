@@ -13,13 +13,15 @@ namespace Locadora.Controllers
         }
         public IActionResult Index()
         {
-            var retorno = locadoraContext.Filmes.Include(x => x.IdcategoriaNavigation).ToList();
+            //AsNoTracking nao coloca o obj no contexto
+            var retorno = locadoraContext.Filmes.Include(x => x.IdcategoriaNavigation).AsNoTracking();
             return View(retorno);
             
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(int Id)
         {
-            return View();
+            Filmes ofilmes = locadoraContext.Filmes.Find(Id);
+            return View(ofilmes);
         }
         
         public ActionResult Edit(int Id)
@@ -40,20 +42,18 @@ namespace Locadora.Controllers
         }
         public ActionResult Delete(int id)
         {
-            return View();
+            Filmes oFilmes = locadoraContext.Filmes.Find(id);
+            return View(oFilmes);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Filmes oFilmes)
         {
-            try
-            {
-                   return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var oFilmesBanco = locadoraContext.Filmes.Find(id);
+            oFilmesBanco.Nome = oFilmes.Nome;
+            locadoraContext.Entry(oFilmesBanco).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            locadoraContext.SaveChanges();
+            return RedirectToAction("Idenx");
         }
         public ActionResult Create()
         {
@@ -67,5 +67,6 @@ namespace Locadora.Controllers
             locadoraContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        
     }
 }

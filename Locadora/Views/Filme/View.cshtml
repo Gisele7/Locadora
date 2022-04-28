@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<Locadora.Filmes>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "_Layout_Novo";
+    ViewData["Title"] = "View";
 }
 
-<h1>Index</h1>
+<h1>View</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-striped table-hover table-responsive">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -25,7 +24,6 @@
             <th></th>
         </tr>
     </thead>
-
     <tbody>
 @foreach (var item in Model) {
         <tr>
@@ -36,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Sinopse)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdcategoriaNavigation.Categoria)
+                @Html.DisplayFor(modelItem => item.IdcategoriaNavigation.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
